@@ -1,0 +1,126 @@
+<%- include('../layouts/header', {title: 'จัดการปีการศึกษา'}); -%>
+<%- include('../layouts/css'); -%>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> จัดการปีการศึกษา
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="uk-margin" style="text-align: right;">
+                    <button style="right: 0; margin-top: 1px;"
+                    class="uk-button uk-button-default  uk-margin-small-right uk-button-primary " type="button"
+                    uk-toggle="target: #modal-addsubject">เพิ่มปีการศึกษา</button>
+    
+            </div>
+            <div id="modal-addsubject" uk-modal>
+                <div class="uk-modal-dialog uk-modal-body">
+                    <h2 class="uk-modal-title uk-legend">เพิ่มปีการศึกษา</h2>
+                    <form method="post" action="/term/add">
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">ปีการศึกษา</label>
+                            <div class="uk-form-controls">
+                                <input id="year" name="year" required class="uk-input" id="form-horizontal-text"
+                                    type="text" placeholder="ใส่ปีการศึกษา" oninput="checkYear()" maxlength="4">
+                            </div>
+                        </div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">เทอม</label>
+                            <div class="uk-form-controls">
+                                <input id="term" name="no" required class="uk-input" id="form-horizontal-text"
+                                    type="text" placeholder="ใส่เทอม" oninput="checkterm()" maxlength="1">
+                            </div>
+                        </div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">เริ่มต้น</label>
+                            <div class="uk-form-controls">
+                                <input name="start" required value="2019-05-17" class="uk-input"
+                                    id="form-horizontal-text" type="date" placeholder="Some text...">
+                            </div>
+                        </div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">สิ้นสุด</label>
+                            <div class="uk-form-controls">
+                                <input name="end" required value="2019-05-17" class="uk-input" id="form-horizontal-text"
+                                    type="date" placeholder="Some text...">
+                            </div>
+                        </div>
+
+                        <p class="uk-text-right">
+                            <button class="uk-button uk-button-default uk-modal-close " type="button">ยกเลิก</button>
+                            <button class="uk-button uk-button-primary" type="submit">เพิ่ม</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <table class="uk-table uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">ปีการศึกษา</th>
+                            <th style="text-align: center;">เทอม</th>
+                            <th style="text-align: center;">เริ่ม</th>
+                            <th style="text-align: center;">สิ้นสุด</th>
+                            <th style="text-align: center;">ตัวเลือก</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% terms.forEach(function(term){ %>
+                        <tr>
+                            <td><%= term.year %></td>
+                            <td><%= term.termNo %></td>
+                            <td><%= term.getDateStart() %></td>
+                            <td><%= term.getDateEnd() %></td>
+                            <td>
+                                <a href="/term/edit/<%= term._id %>"><button class="uk-button uk-button-default"
+                                        style="padding: 0px 10px; margin-right: 10px; background-color: #fcb730; color: #fff;"><span
+                                            uk-icon="pencil"></span></button></a>
+
+                                <a href="/term/del/<%= term._id %>"><button class="uk-button uk-button-danger"
+                                        style="padding: 0px 10px; "><span uk-icon="trash"></span></button></a>
+                            </td>
+                        </tr>
+                        <% }); %>
+                        <% if(terms.length<1){ %>
+                        <tr>
+                            <td colspan="5">ไม่มีข้อมูลในระบบ</td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/javascript'); -%>
+<script>
+    function checkYear() {
+        var number = $('#year');
+        if (!isNaN(number.val())) {
+            console.log(true);
+        } else {
+            number.val('');
+            console.log(number.value);
+        }
+    }
+
+    function checkterm() {
+        var number = $('#term');
+        if (!isNaN(number.val())) {
+            console.log(true);
+        } else {
+            number.val('');
+            console.log(number.value);
+        }
+    }
+</script>
+<%- include('../layouts/footer'); -%>

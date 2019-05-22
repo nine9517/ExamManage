@@ -1,0 +1,104 @@
+<%- include('../layouts/header', {title: 'จัดการรายวิชา'}); -%>
+<%- include('../layouts/css'); -%>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> จัดการรายวิชา
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="uk-margin ">
+                <form class="uk-search uk-search-default">
+                    <span class="uk-search-icon-flip" onclick="searchByKey(this)" uk-search-icon></span>
+                    <input class="uk-search-input" onkeypress="searchEnter(event,this)" type="search" placeholder="Search...">
+                </form>
+                <button type="button" class="uk-button uk-button-default" onclick="searchByKey(this)">ค้นหา</button>
+                <button style="right: 0; margin-top: 1px;"
+                    class="uk-button uk-button-default  uk-margin-small-right uk-align-right uk-button-primary "
+                    type="button" uk-toggle="target: #modal-addsubject">เพิ่มรายวิชา</button>
+            </div>
+            <div id="modal-addsubject" uk-modal>
+                <div class="uk-modal-dialog uk-modal-body">
+                    <h2 class="uk-modal-title uk-legend">เพิ่มข้อมูลวิชา</h2>
+                    <form method="post" action="/subject/add">
+                        <fieldset class="uk-fieldset">
+                            <div class="uk-margin">
+                                <input id="" required class="uk-input" name="id" type="text" placeholder="รหัสวิชา"
+                                    oninput="" maxlength="20">
+                            </div>
+                            <div class="uk-margin">
+                                <input required class="uk-input" name="name" type="text" placeholder="ชื่อวิชา"
+                                    maxlength="50">
+                            </div>
+                        </fieldset>
+                        <p class="uk-text-right">
+                            <button class="uk-button uk-button-default uk-modal-close " type="button">ยกเลิก</button>
+                            <button class="uk-button uk-button-primary" type="submit">เพิ่ม</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <table class="uk-table uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">รหัสวิชา</th>
+                            <th style="text-align: center;">ชื่อวิชา</th>
+                            <th style="text-align: center;">จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% subjects.forEach(function(subject){ %>
+                        <tr>
+                            <td><%= subject.subjectKey %></td>
+                            <td><%= subject.subjectName %></td>
+                            <td>
+                                <a href="/subject/edit/<%= subject._id %>"><button class="uk-button uk-button-default"
+                                        style="padding: 0px 10px; margin-right: 10px; background-color: #fcb730; color: #fff;"><span
+                                            uk-icon="pencil"></span></button></a>
+                                <a href="/subject/del/<%= subject._id %>"><button class="uk-button uk-button-danger"
+                                        style="padding: 0px 10px; "><span uk-icon="trash"></span></button></a>
+                            </td>
+                        </tr>
+                        <% }); %>
+                        <% if(subjects.length<1){ %>
+                        <tr>
+                            <td colspan="3">ไม่มีข้อมูลในระบบ</td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/javascript'); -%>
+<script>
+    function searchEnter(e, obj) {
+        if (e.keyCode == 13) {
+            searchByKey(obj)
+        }
+    }
+
+    function searchByKey(obj) {
+        let input = $(obj).parent().find("input").val();
+        console.log(obj);
+        console.log(input)
+
+        if (input == "") {
+            window.location.href = "/subject/"
+        } else {
+            window.location.href = "/subject/search/" + input
+        }
+    }
+</script>
+<%- include('../layouts/footer'); -%>

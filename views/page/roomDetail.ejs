@@ -1,0 +1,77 @@
+<%- include('../layouts/header', {title: 'ข้อมูลห้อง'}); -%>
+<%- include('../layouts/css'); -%>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> ข้อมูลห้อง
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+            <div style="text-align: center;">
+                <div style="text-align: center; margin-bottom: 30px;"> <b style="font-size: 30px;"> แก้ไขข้อมูล </b>
+                </div>
+
+                <form class="uk-form-horizontal " style="margin-right:100px;" action="/room/manageroom/update"
+                    method="post">
+                    <input type="hidden" name="_id" value="<%= roomData._id %>">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">ชื่อตึก</label>
+                        <div class="uk-form-controls">
+                            <select name="building_id" class="uk-select">
+                                <% buildingData.forEach(function(building){ %>
+                                <option id="building_id" value="<%= building._id%>">
+                                    <%= building.building_name %>
+                                </option>
+                                <% }); %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">ชื่อห้อง</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input " value="<%= roomData.name %>" name="name" type="text"
+                                placeholder="Default">
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">แถว</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input " value="<%= roomData.row %>" min="1" max="20" name="row"
+                                type="number" placeholder="Default">
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">คอลัมน์</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input " value="<%= roomData.col %>" min="1" max="20" name="col"
+                                type="number" placeholder="Default">
+                        </div>
+                    </div>
+
+                    <div class="uk-flex row uk-flex-center">
+                        <div style="text-align: center;margin-right: 10px;">
+                            <button type="submit" class="uk-button uk-button-default">ยืนยัน</button>
+                        </div>
+                        <div style="text-align: center; ">
+                            <a href="/room/manageroom" class="uk-button uk-button-default">ยกเลิก</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/javascript'); -%>
+<%- include('../layouts/footer'); -%>

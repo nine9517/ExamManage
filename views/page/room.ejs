@@ -1,0 +1,107 @@
+<%- include('../layouts/header', {title: 'ข้อมูลห้อง'}); -%>
+<%- include('../layouts/css'); -%>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> ข้อมูลห้อง
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+            <button class="uk-button uk-button-default uk-margin-small-right uk-align-right uk-button-primary "
+            type="button" uk-toggle="target: #modal-single">เพิ่มข้อมูลห้อง</button>
+
+            <div id="modal-single" uk-modal>
+                <div class="uk-modal-dialog uk-modal-body">
+                    <h2 class="uk-modal-title uk-legend">เพิ่มข้อมูลห้อง</h2>
+                    <form action="/room/add" class="uk-form-horizontal uk-margin-large" method="POST">
+                        <fieldset class="uk-fieldset">
+                            
+                                <div style="text-align: center;">
+                
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label" for="form-horizontal-text">ชื่อห้อง</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" name="name" type="text" required>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label" for="form-horizontal-text">ตึก</label>
+                                        <div class="uk-form-controls">
+                                            <select name="building_id" class="uk-select">
+                                                <% buildingData.forEach(function(building){ %>
+                                                    <option id="building_id" value="<%= building._id%>">
+                                                        <%= building.building_name %>
+                                                    </option>
+                                                <% });0 %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label" for="form-horizontal-text">แถว</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" name="row" type="number" min="1" max="20">
+                                        </div>
+                                    </div>
+                
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label" for="form-horizontal-text">คอลัมน์</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" name="col" type="number" min="1" max="20">
+                                        </div>
+                                    </div>                                                 
+                        </fieldset>
+                        <p class="uk-text-right">
+                            <button class="uk-button uk-button-default uk-modal-close " type="button">Cancel</button>
+                            <button class="uk-button uk-button-primary" type="submit">Save</button>
+                        </p>
+                    </form>
+
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <table class="uk-table uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">ชื่อตึก</th>
+                            <th style="text-align: center;">ชื่อห้อง</th>
+                            <th style="text-align: center;">แถว</th>
+                            <th style="text-align: center;">คอลัมน์</th>
+                            <th style="text-align: center;">ตัวเลือก</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% roomData.forEach(function(room){ %>
+                            <tr>
+                                <td><%= room.building.building_name %></td>
+                                <td><%= room.name %></td>
+                                <td><%= room.row %></td>
+                                <td><%= room.col %></td>
+                                <td>
+                                    <a href="/room/manageroom/edit/<%= room._id %>"><button class="uk-button uk-button-default" style="padding: 0px 10px; margin-right: 10px; background-color: #fcb730; color: #fff;"><span uk-icon="pencil"></span></button></a> 
+        
+                                    <a href="/room/manageroom/del/<%= room._id %>"><button class="uk-button uk-button-danger" style="padding: 0px 10px; "><span uk-icon="trash"></span></button></a>
+                                </td>
+                            </tr>
+                        <% }); %>
+                        <% if(roomData.length<1){ %>
+                                <tr>
+                                    <td colspan="4">ไม่มีข้อมูลในระบบ</td>
+                                </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/javascript'); -%>
+<%- include('../layouts/footer'); -%>

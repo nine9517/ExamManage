@@ -1,0 +1,193 @@
+<%- include('../layouts/header', {title: 'ข้อมูลอาจารย์'}); -%>
+<%- include('../layouts/css'); -%>
+<style>
+    .pagination {
+        list-style: none;
+        white-space: nowrap;
+    }
+
+    .pagination>li {
+        display: inline-block;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+</style>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> ข้อมูลอาจารย์
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+            <button class="uk-button uk-button-default uk-margin-small-right uk-align-right uk-button-primary "
+                type="button" uk-toggle="target: #modal-upload">นำเข้าข้อมูลอาจารย์</button>
+            <button class="uk-button uk-button-default uk-margin-small-right uk-align-right uk-button-primary "
+                type="button" uk-toggle="target: #modal-single">เพิ่มข้อมูลอาจารย์</button>
+
+            <div id="modal-single" uk-modal>
+                <div class="uk-modal-dialog uk-modal-body">
+                    <h2 class="uk-modal-title uk-legend">เพิ่มข้อมูลอาจารย์</h2>
+
+                    <form method="post" action="/manageuser/add">
+                        <fieldset class="uk-fieldset">
+                            <div class="uk-margin" hidden>
+                                <select class="uk-select" id="type" name="type">
+                                    <option value="teacher">อาจารย์</option>
+                                </select>
+                            </div>
+
+
+                            <div class="uk-margin">
+                                <input id="iden" class="uk-input" name="id" type="text" placeholder="username"
+                                    required maxlength="10">
+                            </div>
+                            <div class="uk-margin">
+                                <input class="uk-input" name="passwd" type="password" maxlength="20" required
+                                    placeholder="password">
+                            </div>
+                            <div class="uk-margin">
+                                <input class="uk-input" name="firstname" type="text" maxlength="20" placeholder="ชื่อ"
+                                    required>
+                            </div>
+                            <div class="uk-margin">
+                                <input class="uk-input" name="lastname" type="text" maxlength="20" placeholder="นามสกุล"
+                                    required>
+                            </div>
+                            <div class="uk-margin">
+                                <input class="uk-input" name="email" type="email" maxlength="60" placeholder="อีเมลย์"
+                                    required>
+                            </div>
+
+                        </fieldset>
+                        <p class="uk-text-right">
+                            <button class="uk-button uk-button-default uk-modal-close " type="button">Cancel</button>
+                            <button class="uk-button uk-button-primary" type="submit">Save</button>
+                        </p>
+                    </form>
+
+                </div>
+            </div>
+
+            <div id="modal-upload" uk-modal>
+                <div class="uk-modal-dialog uk-modal-body">
+                    <h2 class="uk-modal-title uk-legend">นำเข้าข้อมูลอาจารย์</h2>
+                    <form action="/manageuser/uploaduser" method="post" enctype="multipart/form-data">
+                        <fieldset class="uk-fieldset">
+                            <div class="uk-flex row center">
+                                <div style="text-align: right;width: 500px;">
+                                    <div style="padding-top: 10px;display: inline;">นำเข้าอาจารย์</div>
+                                    <div class="width-50" style="display:inline-block;width:390px;">
+                                        <div class="uk-margin" style="width: 100%;" uk-margin>
+                                            <div uk-form-custom="target: true" style="width: 95%;">
+                                                <input type="file" name="teacher" style="width: 100%;">
+                                                <input class="uk-input uk-form-width-medium" style="width: 100%;"
+                                                    type="text" placeholder="Select file" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <p class="uk-text-right">
+                            <button class="uk-button uk-button-default uk-modal-close " type="button">Cancel</button>
+                            <button class="uk-button uk-button-primary" type="submit">Save</button>
+                        </p>
+                    </form>
+
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <table class="uk-table uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">username</th>
+                            <th style="text-align: center;">ชื่อ</th>
+                            <th style="text-align: center;">นามสกุล</th>
+                            <th style="text-align: center;">อีเมลย์</th>
+                            <th style="text-align: center;">ตัวเลือก</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% teacherData.forEach(function(teacher){ %>
+                        <tr>
+                            <td><%= teacher.teacher_id %></td>
+                            <td><%= teacher.firstname %></td>
+                            <td><%= teacher.lastname %></td>
+                            <td><%= teacher.email %></td>
+                            <td>
+                                <a href="/manageuser/teacher/user/<%= teacher._id %>"><button
+                                        class="uk-button uk-button-default"
+                                        style="padding: 0px 10px; margin-right: 10px; background-color: #fcb730; color: #fff;"><span
+                                            uk-icon="pencil"></span></button></a>
+                                <a href="/manageuser/teacher/del/<%= teacher._id %>"><button
+                                        class="uk-button uk-button-danger" style="padding: 0px 10px; "><span
+                                            uk-icon="trash"></span></button></a>
+                            </td>
+                        </tr>
+                        <% }); %>
+                        <% if(teacherData.length<1){ %>
+                        <tr>
+                            <td colspan="4">ไม่มีข้อมูลในระบบ</td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="text-center">
+            <% if (pages > 0) { %>
+            <ul class="pagination text-center">
+                <% if (current == 1) { %>
+                <li class="disabled"><a>First</a></li>
+                <% } else { %>
+                <li><a href="/manageuser/teacher/1">First</a></li>
+                <% } %>
+                <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                <% if (i !== 1) { %>
+                <li class="disabled"><a>...</a></li>
+                <% } %>
+                <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                <% if (i == current) { %>
+                <li class="active"><a><%= i %></a></li>
+                <% } else { %>
+                <li><a href="/manageuser/teacher/<%= i %>"><%= i %></a></li>
+                <% } %>
+                <% if (i == Number(current) + 4 && i < pages) { %>
+                <li class="disabled"><a>...</a></li>
+                <% } %>
+                <% } %>
+                <% if (current == pages) { %>
+                <li class="disabled"><a>Last</a></li>
+                <% } else { %>
+                <li><a href="/manageuser/teacher/<%= pages %>">Last</a></li>
+                <% } %>
+            </ul>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/javascript'); -%>
+<script>
+    function checkID() {
+        var number = $('#iden');
+        if (!isNaN(number.val())) {
+            console.log(true);
+        } else {
+            number.val('');
+            console.log(number.value);
+        }
+    }
+</script>
+<%- include('../layouts/footer'); -%>

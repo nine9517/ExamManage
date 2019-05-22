@@ -1,0 +1,29 @@
+<div class="side-menu" style="transition: none;width:250px;">
+    <div class="logo">
+        
+            <a class="text-pre" href="/main">Exam</a><a href="/main" class="text-end">Manage</a>
+
+    </div>
+    <div class="logo-hide"><span class="text-pre">E</span><span class="text-end">M</span></div>
+    <div class="menu padding-top-15">
+        <ul>
+            <!-- <li><a href="/manageuser"><span uk-icon="cloud-upload"></span><span class="text">จัดการผู้ใช้งาน</span></a></li> -->
+            <% if(Auth.type=='staff'){ %>
+            <li><a href="/exam"><span uk-icon="file-text"></span><span class="text">จัดการการสอบ</span></a></li>
+            <li><a href="/term"><span uk-icon="future"></span><span class="text">จัดการปีการศึกษา</span></a></li>
+            <li><a href="/subject"><span uk-icon="file-pdf"></span><span class="text">จัดการรายวิชา</span></a></li>
+            <li><a href="/course"><span uk-icon="file-edit"></span><span class="text">จัดการคอร์สเรียน</span></a></li>
+            <li><a href="/staff"><span uk-icon="users"></span><span class="text">จัดการเจ้าหน้าที่</span></a></li>
+            <!-- <li><a href="/building"><span uk-icon="home"></span><span class="text">จัดการตึก</span></a></li>
+            <li><a href="/room"><span uk-icon="list"></span><span class="text">จัดการห้อง</span></a></li> -->
+            <li><a href="/manageuser/teacher"><span uk-icon="user"></span><span class="text">ข้อมูลอาจารย์</span></a></li>
+            <li><a href="/manageuser/student"><span uk-icon="users"></span><span class="text">ข้อมูลนิสิต</span></a></li>
+            <li><a href="/building/managebuilding"><span uk-icon="thumbnails"></span><span class="text">ข้อมูลตึก</span></a></li>
+            <li><a href="/room/manageroom"><span uk-icon="home"></span><span class="text">ข้อมูลห้อง</span></a></li>
+            <li><a href="/exam/viewExam"><span uk-icon="album"></span><span class="text">ดูการจัดสอบ</span></a></li>
+            <% } %>
+            <li><a href="/table"><span uk-icon="clock"></span><span class="text">ดูตารางเวลา</span></a></li>
+            <li><a href="#" onclick="hide(this)"><span class="icon-hide" uk-icon="triangle-left"></span><span class="text">ปิดเมนู</span></a></li>
+        </ul>
+    </div>
+</div>

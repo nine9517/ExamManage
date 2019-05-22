@@ -1,0 +1,140 @@
+<%- include('../layouts/header', {title: 'จัดการผู้ใช้งาน'}); -%>
+<%- include('../layouts/css'); -%>
+
+<style>
+    .row {
+        white-space: nowrap;
+    }
+
+    .row>.width-50 {
+        width: 50%;
+    }
+
+    .center {
+        justify-content: center;
+    }
+</style>
+
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> จัดการการเข้าระบบ
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+
+
+            <div style="text-align: center; margin-bottom: 30px;"> <b style="font-size: 35px;"> จัดการการเข้าระบบ </b>
+            </div>
+
+            <!-- This is a button toggling the modal -->
+            <button class="uk-button uk-button-default uk-margin-small-right uk-align-right uk-button-primary "
+                type="button" uk-toggle="target: #modal-example">เพิ่มผู้ใช้งาน</button>
+
+            <!-- This is an anchor toggling the modal -->
+            <!-- This is the modal -->
+            <div id="modal-example" uk-modal>
+                <div class="uk-modal-dialog uk-modal-body">
+                    <h2 class="uk-modal-title uk-legend">เพิ่มผู้ใช้งาน</h2>
+
+                    <form method="post" action="/manageuser/add">
+                        <fieldset class="uk-fieldset">
+                            <div class="uk-margin">
+                                <select class="uk-select" id="type" name="type">
+                                    <option value="teacher">อาจารย์</option>
+                                    <option value="student">นิสิต</option>
+                                </select>
+                            </div>
+
+
+                            <div class="uk-margin">
+                                <input id="iden" class="uk-input" name="id" type="text" placeholder="รหัสประจำตัว" oninput="checkID()" maxlength="10">
+                            </div>
+
+                            <div class="uk-margin">
+                                <input class="uk-input" name="firstname" type="text" maxlength="20" placeholder="ชื่อ">
+                            </div>
+                            <div class="uk-margin">
+                                <input class="uk-input" name="lastname" type="text" maxlength="20"
+                                    placeholder="นามสกุล">
+                            </div>
+                            <div class="uk-margin">
+                                <input class="uk-input" name="email" type="email" maxlength="60" placeholder="อีเมลย์">
+                            </div>
+
+                        </fieldset>
+                        <p class="uk-text-right">
+                            <button class="uk-button uk-button-default uk-modal-close " type="button">Cancel</button>
+                            <button class="uk-button uk-button-primary" type="submit">Save</button>
+                        </p>
+                    </form>
+
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <form action="/manageuser/uploaduser" method="post" enctype="multipart/form-data">
+
+                <div class="uk-flex row center">
+                    <div style="text-align: right;width: 500px;">
+                        <div style="padding-top: 10px;display: inline;">นำเข้านิสิต</div>
+                        <div class="width-50" style="display:inline-block;width:390px;">
+                            <div class="uk-margin" style="width: 100%;" uk-margin>
+                                <div uk-form-custom="target: true" style="width: 95%;">
+                                    <input type="file" name="student" style="width: 100%;">
+                                    <input class="uk-input uk-form-width-medium" style="width: 100%;" type="text"
+                                        placeholder="Select file" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="uk-flex row center">
+                    <div style="text-align: right;width: 500px;">
+                        <div style="padding-top: 10px;display: inline;">นำเข้าอาจารย์</div>
+                        <div class="width-50" style="display:inline-block;width:390px;">
+                            <div class="uk-margin" style="width: 100%;" uk-margin>
+                                <div uk-form-custom="target: true" style="width: 95%;">
+                                    <input type="file" name="teacher" style="width: 100%;">
+                                    <input class="uk-input uk-form-width-medium" style="width: 100%;" type="text"
+                                        placeholder="Select file" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uk-flex row center">
+                    <div class="width-50" style="text-align: center;">
+                        <button type="submit" class="uk-button uk-button-default uk-button-primary">ยืนยัน</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/javascript'); -%>
+<script>
+    function checkID() {
+        var number = $('#iden');
+        if (!isNaN(number.val())) {
+            console.log(true);
+        } else {
+            number.val(''); 
+            console.log(number.value);
+        }
+    }
+</script>
+<%- include('../layouts/footer'); -%>

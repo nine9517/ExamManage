@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/uikit.min.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+
+    
+
+</head>
+
+<body>
+    <div class="contianer">
+        <div class="box">
+            <div class="logo">
+                <span class="text-pre">Exam</span><span class="text-end">Manage</span>
+            </div>
+            <form action="/login/login" method="post">
+                <div class="input-login">
+                    <div class="uk-inline">
+                        <span class="uk-form-icon" uk-icon="icon: user"></span>
+                        <input type="text" name="username" class="uk-input" placeholder="ชื่อผู้ใช้">
+                    </div>
+                </div>
+                <div class="input-login">
+                    <div class="uk-inline">
+                        <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                        <input type="password" name="password" class="uk-input" placeholder="รหัสผ่าน">
+                    </div>
+                </div>
+                <button class="uk-button uk-button-default uk-width-1-1 bt-login">เข้าสู่ระบบ</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- js -->
+    <script src="/js/uikit.min.js"></script>
+    <script src="/js/uikit-icons.min.js"></script>
+    <script src="/js/flash.js"></script>
+</body>
+
+</html>

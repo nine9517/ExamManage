@@ -1,0 +1,64 @@
+<%- include('../layouts/header', {title: 'ดูตารางเวลาสอบ'}); -%>
+<%- include('../layouts/css'); -%>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> ดูตารางเวลาสอบ
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">          
+            <div style="text-align: center;">
+                <table class="uk-table uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">รหัสวิชา</th>
+                            <th style="text-align: center;">ชื่อวิชา</th>
+                            <th style="text-align: center;">วัน</th>
+                            <th style="text-align: center;">เวลา</th>
+                            <th style="text-align: center;">ตึก</th>
+                            <th style="text-align: center;">ห้อง</th>
+                            <th style="text-align: center;">ที่นั่ง</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(locals.examination){ %>
+                        <% examination.forEach(function(exam){ %>
+                        <tr>
+                            <td><%= exam.subject.subjectKey %></td>
+                            <td style=" width: 300px;"><%= exam.subject.subjectName %></td>
+                            <td><%= exam.getDay() %></td>
+                            <td><%= exam.getTimeStart()%> - <%= exam.getTimeEnd()%></td>
+                            <td><%= exam.building.building_name %></td>
+                          
+                            <% exam.sit.forEach(function(siter){ %>
+                                <% if(siter.student==student_id){ %>
+                                <td><%=siter.roomName %></td>
+                                <td><%= siter.col %><%= siter.row %></td>  
+                                <% } %>
+                            <% }); %>            
+                   
+                        </tr>
+                        <% }); %>
+                        <% if(examination.length<1){ %>
+                        <tr>
+                            <td colspan="3">ไม่มีข้อมูลในระบบ</td>
+                        </tr>
+                        <% } %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/javascript'); -%>
+<%- include('../layouts/footer'); -%>

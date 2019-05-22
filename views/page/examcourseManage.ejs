@@ -1,0 +1,86 @@
+<%- include('../layouts/header', {title: 'จัดการการสอบ'}); -%>
+<%- include('../layouts/css'); -%>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> จัดการการสอบ
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+            <a href="/exam/manage/course/addExam/<%=subject._id%>/<%=course._id%>" style="right: 0; margin-top: 1px;"
+                class="uk-button uk-button-default  uk-margin-small-right uk-align-right uk-button-primary">เพิ่มการสอบ</a>
+            <div style="text-align: center;">
+                <table class="uk-table uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">ชื่อวิชา</th>
+                            <th style="text-align: center;">เทอม</th>
+                            <th style="text-align: center;">วันที่</th>
+                            <th style="text-align: center;">เวลา</th>
+                            <th style="text-align: center;">จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <% examination.forEach(function(exam){ %>
+                        <tr>
+
+                            <td><%=exam.subject.subjectKey%></td>
+                            <td><%=exam.term.termNo%></td>
+                            <td><%=exam.getDay()%></td>
+                            <td><%=exam.getTimeStart()%>-<%=exam.getTimeEnd()%></td>
+
+                            <td>
+                                <% if(exam.sit.length<1){ %>
+                                <a href="/exam/manage/room/<%=subject._id%>/<%=course._id%>/<%=exam._id %>"
+                                    style="right: 0; margin-top: 1px;"
+                                    class="uk-button uk-button-default  uk-margin-small-right uk-background-muted  ">จัดการห้อง
+                                </a>
+                                <% }else{ %>
+                                    <a href="#modal-room" uk-toggle
+                                        style="right: 0; margin-top: 1px;"
+                                        class="uk-button uk-button-default  uk-margin-small-right uk-background-muted">จัดการห้อง
+                                    </a>
+
+                                <% } %>
+                                <div id="modal-room" uk-modal>
+                                        <div class="uk-modal-dialog uk-modal-body">                                 
+                                            <p>มีการจัดห้องเรียบร้อยแล้ว</p>
+                                            <p class="uk-text-right">
+                                                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>                                              
+                                            </p>
+                                        </div>
+                                    </div>
+                                <a href="/exam/manage/examiner/<%=subject._id%>/<%=course._id%>/<%=exam._id %>"
+                                    style="right: 0; margin-top: 1px;"
+                                    class="uk-button uk-button-default  uk-margin-small-right uk-background-muted ">จัดการผู้คุมสอบ</a>
+                                <a href="/exam/manage/course/del/<%=subject._id%>/<%=course._id%>/<%=exam._id %>"
+                                    style="right: 0; margin-top: 1px;"
+                                    class="uk-button uk-button-default  uk-margin-small-right uk-button-danger ">ลบ</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                        <% if(examination.length<1){ %>
+                        <tr>
+                            <td style="text-align: center;" colspan="3">ไม่มีข้อมูลในระบบ
+                            </td>
+                        </tr>
+                        <% } %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/javascript'); -%>
+<%- include('../layouts/footer'); -%>

@@ -1,0 +1,78 @@
+<%- include('../layouts/header', {title: 'จัดการตึก'}); -%>
+<%- include('../layouts/css'); -%>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> จัดการตึก
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+            <div style="text-align: center; margin-bottom: 30px;"> <b style="font-size: 35px;"> เพิ่มข้อมูลตึก </b>
+            </div>
+
+
+            <!-- This is a button toggling the modal -->
+            <button class="uk-button uk-button-default uk-margin-small-right uk-align-right uk-button-primary "
+                type="button" uk-toggle="target: #modal-example">เพิ่มข้อมูลตึก</button>
+
+            <!-- This is an anchor toggling the modal -->
+            <!-- This is the modal -->
+            <div id="modal-example" uk-modal>
+                <div class="uk-modal-dialog uk-modal-body">
+                    <h2 class="uk-modal-title uk-legend">เพิ่มข้อมูลตึก</h2>
+                    <form method="POST" action="/building/addone">
+                        <fieldset class="uk-fieldset">
+                            <div class="uk-margin">
+                                <input class="uk-input" name="building_id" type="number" maxlength="20"
+                                    placeholder="รหัสตึก" max="999999">
+                            </div>
+                            <div class="uk-margin">
+                                <input class="uk-input" name="building_name" type="text" maxlength="20"
+                                    placeholder="ชื่อตึก">
+                            </div>
+
+
+                        </fieldset>
+                        <p class="uk-text-right">
+                            <button class="uk-button uk-button-default uk-modal-close " type="button">Cancel</button>
+                            <button class="uk-button uk-button-primary" type="submit">Save</button>
+                        </p>
+                    </form>
+
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <form action="/building/add" method="post" enctype="multipart/form-data">
+                <div class="uk-flex row center">
+                    <div style="padding-top: 10px; margin-left: 40px;">นำเข้าไฟล์</div>
+                    <div style="width: 80%;">
+                        <div class="uk-margin" style="width: 100%;" uk-margin>
+                            <div uk-form-custom="target: true" style="width: 95%; margin-left: 5%;">
+                                <input type="file" name="building" style="width: 100%;">
+                                <input class="uk-input uk-form-width-medium" style="width: 100%;" type="text"
+                                    placeholder="Select file" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="width-50" style="text-align: center;">
+                    <button type="submit" class="uk-button uk-button-default">ยืนยัน</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/javascript'); -%>
+<%- include('../layouts/footer'); -%>

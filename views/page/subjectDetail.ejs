@@ -1,0 +1,57 @@
+<%- include('../layouts/header', {title: 'ข้อมูลวิชา'}); -%>
+<%- include('../layouts/css'); -%>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> ข้อมูลวิชา
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+            <div style="text-align: center;">
+                <div style="text-align: center; margin-bottom: 30px;"> <b style="font-size: 30px;"> แก้ไขข้อมูล </b>
+                </div>
+
+                <form class="uk-form-horizontal " style="margin-right:100px;" action="/subject/update"
+                    method="post">
+                    <input type="hidden" name="_id" value="<%= subjectData._id %>">
+            
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">รหัสวิชา</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input " value="<%= subjectData.subjectKey %>" name="subjectKey" type="text" required maxlength="20"
+                                placeholder="Default">
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">ชื่อวิชา</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input " value="<%= subjectData.subjectName %>" maxlength="30" name="subjectName" required maxlength="50"
+                                type="text" placeholder="Default">
+                        </div>
+                    </div>
+
+                    <div class="uk-flex row uk-flex-center">
+                        <div style="text-align: center;margin-right: 10px;">
+                            <button type="submit" class="uk-button uk-button-default">ยืนยัน</button>
+                        </div>
+                        <div style="text-align: center; ">
+                            <a href="/subject" class="uk-button uk-button-default">ยกเลิก</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/javascript'); -%>
+<%- include('../layouts/footer'); -%>

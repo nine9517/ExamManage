@@ -1,0 +1,51 @@
+<div class="uk-margin" style="text-align: center;">
+    <form class="uk-search uk-search-default">
+        <span class="uk-search-icon-flip" uk-search-icon></span>
+        <input class="uk-search-input" type="search" placeholder="Search...">
+    </form>
+    <button type="button" class="uk-button uk-button-default">ค้นหา</button>
+    <button style="right: 0; margin-top: 1px;"
+        class="uk-button uk-button-default  uk-margin-small-right uk-button-primary " type="button"
+        uk-toggle="target: #modal-addsubject">เพิ่มรายวิชา</button>
+</div>
+<div id="modal-addsubject" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title uk-legend">เพิ่มข้อมูลวิชา</h2>
+        <form method="" action="">
+            <fieldset class="uk-fieldset">
+                <div class="uk-margin">
+                    <input id="" class="uk-input" name="" type="text" placeholder="รหัสวิชา" oninput="" maxlength="10">
+                </div>
+                <div class="uk-margin">
+                    <input class="uk-input" name="" type="text" maxlength="20" placeholder="ชื่อวิชา">
+                </div>
+            </fieldset>
+            <p class="uk-text-right">
+                <button class="uk-button uk-button-default uk-modal-close " type="button">Cancel</button>
+                <button class="uk-button uk-button-primary" type="submit">Save</button>
+            </p>
+        </form>
+    </div>
+</div>
+<div style="text-align: center;">
+    <table class="uk-table uk-table-divider">
+        <thead>
+            <tr>
+                <th style="text-align: center;">รหัสวิชา</th>
+                <th style="text-align: center;">ชื่อวิชา</th>
+                <th style="text-align: center;">จัดการ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>88510159</td>
+                <td>ICT</td>
+                <td>
+                    <button>เพิ่มคอร์ส</button>
+                    <button>แก้ไข</button>
+                    <button>ลบ</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

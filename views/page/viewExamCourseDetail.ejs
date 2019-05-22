@@ -1,0 +1,186 @@
+<%- include('../layouts/header', {title: 'จัดการการสอบ'}); -%>
+<%- include('../layouts/css'); -%>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> จัดการการสอบ
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+            <div style="text-align: center;">
+                <table class="uk-table uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">ชื่อวิชา</th>
+                            <th style="text-align: center;">เทอม</th>
+                            <th style="text-align: center;">วันที่</th>
+                            <th style="text-align: center;">เวลา</th>
+                            <th style="text-align: center;">จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <% examination.forEach(function(exam){ %>
+                        <tr>
+
+                            <td><%=exam.subject.subjectKey%></td>
+                            <td><%=exam.term.termNo%></td>
+
+                            <td><%=exam.getDay()%></td>
+                            <td><%=exam.getTimeStart()%>-<%=exam.getTimeEnd()%></td>
+                            <td>
+                                <button style="right: 0; margin-top: 1px;"
+                                    class="uk-button uk-button-default  uk-margin-small-right uk-button-primary "
+                                    type="button" uk-toggle="target: #student-<%=exam._id%>">นิสิต</button>
+
+                                <button style="right: 0; margin-top: 1px;"
+                                    class="uk-button uk-button-default  uk-margin-small-right uk-button-primary "
+                                    type="button" uk-toggle="target: #room-<%=exam._id%>">ห้อง</button>
+                                <button style="right: 0; margin-top: 1px;"
+                                    class="uk-button uk-button-default  uk-margin-small-right uk-button-primary "
+                                    type="button" uk-toggle="target: #examiner-<%=exam._id%>">ผู้คุมสอบ</button>
+
+                                <a href="/exam/view/course/del/<%=subject._id%>/<%=course._id%>/<%=exam._id %>"
+                                    style="right: 0; margin-top: 1px;"
+                                    class="uk-button uk-button-default  uk-margin-small-right uk-button-danger ">ลบ</a>
+                                <a href="/exam/manage/course/announce/<%=subject._id%>/<%=course._id%>/<%=exam._id %>"
+                                    style="right: 0; margin-top: 1px;"
+                                    class="uk-button uk-button-default  uk-margin-small-right  ">ประกาศ</a>
+
+
+                                <div id="student-<%=exam._id%>" uk-modal>
+                                    <div class="uk-modal-dialog uk-modal-body">
+
+                                        <div class="uk-overflow-auto">
+                                            <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+                                                <thead>
+                                                    <tr>
+                                                        <th>รหัสนิสิต</th>
+                                                        <th>ชื่อ-สกุล</th>
+                                                        <th>ที่นั่ง</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% exam.sit.forEach(function(student){ %>
+                                                    <tr>
+
+                                                        <td><%=student.student.student_id%></td>
+                                                        <td><%=student.student.firstname%> <%=student.student.lastname%>
+                                                        </td>
+                                                        <td><%=student.col%><%=student.row%></td>
+                                                    </tr>
+                                                    <% }) %>
+                                                    <% if(exam.sit.length<1){ %>
+                                                    <tr>
+                                                        <td style="text-align: center;" colspan="3">ไม่มีข้อมูลในระบบ
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="room-<%=exam._id%>" uk-modal>
+                                    <div class="uk-modal-dialog uk-modal-body">
+
+                                        <div class="uk-overflow-auto">
+                                            <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ตึก</th>
+                                                        <th>ห้อง</th>
+                                                        <th>แถว</th>
+                                                        <th>คอลัมน์</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% exam.roomId.forEach(function(room){ %>
+                                                    <tr>
+
+                                                        <td><%=exam.building.building_name%></td>
+                                                        <td><%=room.room.name%></td>
+                                                        <td><%=room.room.row%></td>
+                                                        <td><%=room.room.col%></td>
+                                                    </tr>
+                                                    <% }) %>
+                                                    <% if(exam.roomId.length<1){ %>
+                                                    <tr>
+                                                        <td style="text-align: center;" colspan="3">ไม่มีข้อมูลในระบบ
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div id="examiner-<%=exam._id%>" uk-modal>
+                                    <div class="uk-modal-dialog uk-modal-body">
+
+                                        <div class="uk-overflow-auto">
+                                            <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+                                                <thead>
+                                                    <tr>
+                                                        <th>รหัสประจำตัว</th>
+                                                        <th>ชื่อ-สกุล</th>
+                                                        <th>สถานะ</th>
+                                                        <th>อีเมลย์</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% exam.examiner.forEach(function(user){ %>
+                                                    <tr>
+
+                                                        <td><%=user.id%></td>
+                                                        <td><%=user.firstname%> <%=user.lastname%></td>
+                                                        <td><%=user.status%></td>
+                                                        <td><%=user.email%></td>
+                                                    </tr>
+                                                    <% }) %>
+                                                    <% if(exam.examiner.length<1){ %>
+                                                    <tr>
+                                                        <td style="text-align: center;" colspan="3">ไม่มีข้อมูลในระบบ
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        <% }) %>
+                        <% if(examination.length<1){ %>
+                        <tr>
+                            <td style="text-align: center;" colspan="3">ไม่มีข้อมูลในระบบ
+                            </td>
+                        </tr>
+                        <% } %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/javascript'); -%>
+<%- include('../layouts/footer'); -%>

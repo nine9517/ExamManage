@@ -1,0 +1,65 @@
+<%- include('../layouts/header', {title: 'student'}); -%>
+<%- include('../layouts/css'); -%>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> ข้อมูลอาจารย์
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+            <div style="text-align: center;">
+                <div style="text-align: center; margin-bottom: 30px;"> <b style="font-size: 30px;"> แก้ไขข้อมูล </b></div>
+
+                <form class="uk-form-horizontal " style="margin-right:100px;" action="/manageuser/teacher/update" method="post">
+                    <input type="hidden" name="_id" value="<%= teacherData._id %>">
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">username</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input"  value="<%= teacherData.teacher_id %>" required maxlength="20" name="teacher_id" type="text" placeholder="Default">
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">ชื่อ</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input "  value="<%= teacherData.firstname %>" required maxlength="30" name="firstname" type="text" placeholder="Default">
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">นามสกุล</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input "  value="<%= teacherData.lastname %>" required maxlength="20" name="lastname" type="text" placeholder="Default">
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">อีเมลย์</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input " value="<%= teacherData.email %>" name="email" type="email"
+                                placeholder="Default">
+                        </div>
+                    </div>
+
+                    <div class="uk-flex row center">
+                        <div style="text-align: center; width: 100%;">
+                            <button type="submit" class="uk-button uk-button-default">ยืนยัน</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/javascript'); -%>
+<%- include('../layouts/footer'); -%>

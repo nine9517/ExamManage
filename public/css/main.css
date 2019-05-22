@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css?family=Mali');
+html{
+    background-color: #404040;
+    font-family: 'Mali', cursive;
+}
+.side-menu{
+    background-color: #2d2626;
+    height: 100vh;
+    width: 250px;
+    transition: all .2s;
+}
+.side-menu > .logo{
+    font-family: 'Sniglet', cursive;
+    text-align: center;
+    font-size: 25px;
+    width: 100%;
+    padding-top: 15px;
+}
+
+.side-menu > .logo > .text-pre{
+    color: #fcb730;
+}
+
+.side-menu > .logo > .text-end{
+    color: #00b4aa;
+}
+
+.padding-top-15{
+    margin-top: 15px;
+}
+
+.side-menu > .menu > ul{
+    list-style: none;
+    padding: 0px;
+}
+
+.side-menu > .menu > ul > li > a{
+    color: #cec8bd;
+    padding: 5px;
+    display: block;
+}
+.side-menu > .menu > ul > li  > a > span{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.side-menu > .menu > ul > li  > a:hover{
+    background-color: #575151;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+
+/* Menu Hide */
+.side-menu > .logo-hide{
+    font-family: 'Sniglet', cursive;
+    text-align: center;
+    font-size: 25px;
+    padding: 8px;
+    display: none;
+}
+.side-menu > .logo-hide > .text-pre{
+    color: #fcb730;
+}
+
+.side-menu > .logo-hide > .text-end{
+    color: #00b4aa;
+}
+
+.side-menu > .menu > .text-center > li > a{
+    text-align: center;
+}
+
+
+.content-contianer{
+    width: 100%;
+}
+
+
+.content-contianer > .navbar{
+    
+}
+
+.content-contianer > .content{
+    margin: 25px;
+    background-color: #ffffff;
+    padding: 15px;
+    min-height: 300px;
+}
+
+.width-100{
+    width: 100%;
+}
+.nav-left{
+    color: #cec8bd;
+    padding: 5px;
+    padding-left: 15px;
+}
+.nav-right{
+    text-align: right;
+    padding-top: 5px;
+    padding-right: 5px;
+}
+
+.nav-right > a{
+    color: #cec8bd;
+    
+
+    text-decoration: none;
+    
+}
+
+.nav-right > a:hover{
+    text-decoration: none;
+}
+
+.underline{
+    border-bottom: 1px solid #ccc;
+
+}
+#user-option::before{
+    content: '';
+    position: absolute;
+    left: 82%;
+    margin-top: -33px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #fff;
+    clear: both;
+}

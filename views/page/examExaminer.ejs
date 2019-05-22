@@ -1,0 +1,175 @@
+<%- include('../layouts/header', {title: 'จัดการการสอบ'}); -%>
+<%- include('../layouts/css'); -%>
+<style>
+    .only-timepicker .datepicker--nav,
+    .only-timepicker .datepicker--content {
+        display: none;
+    }
+
+    .only-timepicker .datepicker--time {
+        border-top: none;
+    }
+</style>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> จัดการการสอบ
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+            <form class=" uk-form-horizontal uk-width-xxlarge uk-align-center" method="POST"
+                action="/exam/search/examiner">
+                <input style="display:none" class="uk-input" name="id" value="<%= course._id %>">
+                <input style="display:none" value="<%=examination._id%>" name="examination_id">
+                <input type="hidden" name="subject_id" value="<%= subject._id %>">
+                <br>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">วัน</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input date_input datepicker-here" data-language='th' name="date"
+                            value="<%= inputDate %>" type="text">
+                    </div>
+                </div>
+
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">เวลาเริ่ม</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input time_input" name="start" type="text" value="23:00">
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">ถึงเวลา</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input time_input" name="end" type="text" value="23:00">
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <button type="submit" name="search" value="0"
+                        class="uk-button uk-button-default uk-align-right">ค้นหาจากอาจารย์</button>
+                </div>
+                <div class="uk-margin">
+                    <button type="submit" name="search" value="1"
+                        class="uk-button uk-button-default uk-align-right">ค้นหาจากเจ้าหน้าที่</button>
+                </div>
+            </form>
+            <form action="/exam/manage/examiner/save/<%= subject._id %>/<%= course._id %>" method="POST">
+                <input style="display:none" value="<%=examination._id%>" name="examination_id">
+                <% if(locals.type){ %>
+                <input style="display:none" value="<%=type%>" name="type">
+                <% } %>
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>รหัสประจำตัว</th>
+                            <th>ชื่อ</th>
+                            <th>นามสกุล</th>
+                            <th>อีเมลย์</th>
+                            <th>จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(locals.examiner){ %>
+                        <% examiner.forEach(function(exam){ %>
+                        <tr>
+                            <% if(locals.type){ %>
+                                <% if(type=='teacher'){ %>
+                            <td><%= exam.teacher_id %></td>
+                                <% }else{ %>
+                                    <td><%= exam.username %></td>
+                                <% } %>
+                            <% } %>
+                            <td><%= exam.firstname %></td>
+                            <td><%= exam.lastname %></td>
+                            <td><%= exam.email %></td>
+                            <td><input class="uk-checkbox" name="examiner" value="<%= exam._id %>" type="checkbox"></td>
+                        </tr>
+                        <% }); %>
+
+                        <% if(examiner.length<1){ %>
+                        <tr>
+                            <td colspan="4">ไม่มีข้อมูลในระบบ</td>
+                        </tr>
+                        <% } %>
+                        <% } %>
+                    </tbody>
+                </table>
+                <% if(data!=null){ %>
+                <input type="hidden" id="dataJSON" name="data" value="<%- encodeURIComponent(JSON.stringify(data)) %>">
+                <% } %>
+                <div class="uk-margin" style="text-align:right;">
+                    <button type="submit" class="uk-button uk-button-default">บันทึก</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../layouts/javascript'); -%>
+<script>
+    $.fn.datepicker.language['en'] = {
+        days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+            'November', 'December'
+        ],
+        monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        today: 'Today',
+        clear: 'Clear',
+        dateFormat: 'yyyy-mm-dd',
+        timeFormat: 'hh:ii',
+        firstDay: 0
+    };
+    $.fn.datepicker.language['th'] = {
+        days: ['วันอาทิตย์', 'วันจันทร์', 'วันอังคาร', 'วันพุธ', 'วันพฤหัสบดี', 'วันศุกร์', 'วันเสาร์'],
+        daysShort: ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัส', 'ศุกร์', 'เสาร์'],
+        daysMin: ['อา.', 'จ.', 'อ', 'พ.', 'พฤ.', 'ศ.', 'ส.'],
+        months: ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+            "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+        ],
+        monthsShort: ['มกรา', 'กุมภา', 'มีนา', 'เมษา', 'พฤษภา', 'มิถุนา', 'กรกฏา', 'สิงหา', 'กันยา', 'ตุลา',
+            'พฤศจิกา', 'ธันวา'
+        ],
+        today: 'วันนี้',
+        clear: 'รีเซ็ต',
+        dateFormat: 'yyyy-mm-dd',
+        timeFormat: 'hh:ii',
+        firstDay: 0
+    };
+
+    $('.time_input').datepicker({
+        language: 'th',
+        dateFormat: ' ',
+        dateTimeSeparator: '',
+        timepicker: true,
+        classes: 'only-timepicker',
+        onHide: function (dp, animationCompleted) {
+            console.log(this.$el);
+
+            if (animationCompleted) {
+                this.$el.val(this.$el.val().replace(/ /g, ""))
+            }
+        }
+    })
+
+    $('.date_input').datepicker({
+        language: 'th',
+
+    })
+    // $('.date_input').val('<%= inputDate %>');
+    var datepicker = $('.date_input').datepicker().data('datepicker');
+    datepicker.selectDate(new Date('<%= inputDate %>'));
+    console.log(JSON.parse(decodeURIComponent($('#dataJSON').val())));
+</script>
+
+<%- include('../layouts/footer'); -%>

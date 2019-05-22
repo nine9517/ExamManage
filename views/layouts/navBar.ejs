@@ -1,0 +1,22 @@
+<div class="width-100 nav-right" style="color: #fff;">
+
+    <p>
+        Term : <%= term.termNo %>/<%= term.year %>
+    </p>
+
+</div>
+<div class="nav-right" style="width: 40%;">
+
+    <a href="#"><%= Auth.user.firstname %> <%= Auth.user.lastname %> <span uk-icon="cog"></span></a>
+
+    <div id="user-option" uk-dropdown="mode: click;animation: uk-animation-slide-top-small; duration: 200">
+        <ul class="uk-nav uk-dropdown-nav">
+            <!-- <li class="uk-nav-header underline">ข้อมูลส่วนตัว</li>
+            <li><a href="#">แก้ไข</a></li>
+            <li><a href="#">เปลี่ยนรหัสผ่าน</a></li>
+            <li class="uk-nav-header underline">ระบบ</li> -->
+            <li><a href="/login/logout">ออกจากระบบ</a></li>
+        </ul>
+    </div>
+
+</div>

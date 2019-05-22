@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css?family=Sniglet');
+html{
+    background-color:#005290;
+}
+
+body{
+    margin: 0px;
+}
+.contianer{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.contianer > .box{
+    padding: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+    background-color: #2d2626;
+}
+.input-login{
+    width: 100%;
+    margin-top:15px;
+}
+
+.input-login > .uk-inline{
+    width: 300px;
+}
+.contianer > .box > .logo{
+    font-family: 'Sniglet', cursive;
+    text-align: center;
+    font-size: 45px;
+}
+
+.contianer > .box > .logo > .text-pre{
+    color: #fcb730;
+}
+
+.contianer > .box > .logo > .text-end{
+    color: #00b4aa;
+}
+
+.bt-login,.uk-button-default:focus, .uk-button-default:hover{
+    background-color: #005290;
+    border: 0px;
+    margin-top:15px;
+    color: #fff;
+}

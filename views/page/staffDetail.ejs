@@ -1,0 +1,60 @@
+<%- include('../layouts/header', {title: 'จัดการเจ้าหน้าที่'}); -%>
+<%- include('../layouts/css'); -%>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> จัดการเจ้าหน้าที่
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+            <div style="text-align: center;">
+                <div style="text-align: center; margin-bottom: 30px;"> <b style="font-size: 30px;"> แก้ไขข้อมูล </b>
+                </div>
+                <form class="uk-form-horizontal " style="margin-right:100px;" action="/staff/update"
+                    method="post">
+                    <input type="hidden" name="_id" value="<%= staffData._id %>">
+                    
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">ชื่อ</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input " value="<%= staffData.firstname %>" required name="firstname" type="text" required
+                                placeholder="Default">
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">นามสกุล</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input " value="<%= staffData.lastname %>" required name="lastname" type="text" required
+                                placeholder="Default">
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-horizontal-text">อีเมลล์</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input " value="<%= staffData.email %>" required name="email" type="email" 
+                                placeholder="Default">
+                        </div>
+                    </div>
+
+                    <div class="uk-flex row center">
+                        <div style="text-align: center; width: 100%;">
+                            <button type="submit" class="uk-button uk-button-default">ยืนยัน</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../layouts/javascript'); -%>
+    <%- include('../layouts/footer'); -%>

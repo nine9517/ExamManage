@@ -1,0 +1,9 @@
+{
+    "PORT":1669,
+    "LOG":"tiny",
+    "VIEW_ENGINE":"ejs",
+    "STATIC_DIR":"public",
+    "DB_HOST":"127.0.0.1",
+    "DB_PORT":"27017",
+    "DB_NAME":"exammanage"
+}

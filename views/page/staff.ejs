@@ -1,0 +1,94 @@
+<%- include('../layouts/header', {title: 'จัดการเจ้าหน้าที่'}); -%>
+<%- include('../layouts/css'); -%>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> จัดการเจ้าหน้าที่
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+            <button class="uk-button uk-button-default uk-margin-small-right uk-align-right uk-button-primary "
+                type="button" uk-toggle="target: #modal-single">เพิ่มเจ้าหน้าที่</button>
+            <div id="modal-single" uk-modal>
+                <div class="uk-modal-dialog uk-modal-body">
+                    <h2 class="uk-modal-title uk-legend">เพิ่มข้อมูลเจ้าหน้าที่</h2>
+
+                    <form method="post" action="/login/adduser">
+                        <fieldset class="uk-fieldset">
+                            <div class="uk-margin">
+                                <input id="iden" class="uk-input" name="username" type="text" placeholder="username" required
+                                    maxlength="">
+                            </div>
+
+                            <div class="uk-margin">
+                                <input class="uk-input" name="password" type="password" maxlength="20" required
+                                    placeholder="password">
+                            </div>
+                            <div class="uk-margin">
+                                <input class="uk-input" name="firstname" type="text" maxlength="20" required
+                                    placeholder="firstname">
+                            </div>
+                            <div class="uk-margin">
+                                <input class="uk-input" name="lastname" type="text" maxlength="20" required
+                                    placeholder="lastname">
+                            </div>
+                            <div class="uk-margin">
+                                <input class="uk-input" name="email" type="email" maxlength="60" placeholder="อีเมลล์" required>
+                            </div>
+                            <input type="hidden" name="status" value="0">
+                        </fieldset>
+                        <p class="uk-text-right">
+                            <button class="uk-button uk-button-default uk-modal-close " type="button">Cancel</button>
+                            <button class="uk-button uk-button-primary" type="submit">Save</button>
+                        </p>
+                    </form>
+
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <table class="uk-table uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">Username</th>
+                            <th style="text-align: center;">ชื่อ</th>
+                            <th style="text-align: center;">นามสกุล</th>
+                            <th style="text-align: center;">อีเมลย์</th>
+                            <th style="text-align: center;">ตัวเลือก</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% staff.forEach(function(data){ %>
+                            <tr>
+                                <td><%= data.username %></td>
+                                <td><%= data.firstname %></td>
+                                <td><%= data.lastname %></td>
+                                <td><%= data.email %></td>
+                                <td>
+                                    <a href="/staff/<%=data._id%>"><button
+                                            class="uk-button uk-button-default"
+                                            style="padding: 0px 10px; margin-right: 10px; background-color: #fcb730; color: #fff;"><span
+                                                uk-icon="pencil"></span></button></a>
+
+                                    <a href="/staff/del/<%=data._id%>"><button
+                                            class="uk-button uk-button-danger" style="padding: 0px 10px; "><span
+                                                uk-icon="trash"></span></button></a>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/javascript'); -%>
+<%- include('../layouts/footer'); -%>

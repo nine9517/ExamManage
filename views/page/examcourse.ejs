@@ -1,0 +1,219 @@
+<%- include('../layouts/header', {title: 'ตารางเวลา'}); -%>
+<%- include('../layouts/css'); -%>
+<style>
+    .easy-autocomplete {
+        width: 100% !important;
+    }
+
+    .easy-autocomplete>input {
+        width: 100% !important;
+        padding: 10px;
+    }
+</style>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span>
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+
+
+            <div>
+
+                <li class="uk-nav-header underline" style="margin-top: 15px;font-size: 20px">วิชา
+                    <%=subject.subjectName%> </li>
+            </div>
+            <div style="text-align: center;">
+                <table class="uk-table uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">กลุ่มเรียน</th>
+                            <th style="text-align: center;">รายละเอียด</th>
+                            <th style="text-align: center;">จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% subject.course.forEach(function(course){ %>
+                        <tr>
+                            <td><%=course.courseNo%></td>
+                            <td>
+                                <button style="right: 0; margin-top: 1px;"
+                                    class="uk-button uk-button-default  uk-margin-small-right" type="button"
+                                    uk-toggle="target: #addteacher-<%=course._id%>">อาจารย์ (<%=course.teacher.length%>
+                                    คน)</button>
+                                <button style="right: 0; margin-top: 1px;"
+                                    class="uk-button uk-button-default  uk-margin-small-right " type="button"
+                                    uk-toggle="target: #addstudent-<%=course._id%>">นิสิต (<%=course.student.length%>
+                                    คน)</button>
+                                <div id="addstudent-<%=course._id%>" uk-modal>
+                                    <div class="uk-modal-dialog uk-modal-body">
+                                        <h2 class="uk-modal-title uk-legend">นิสิต</h2>
+                                        <div class="uk-overflow-auto">
+                                            <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+                                                <thead>
+                                                    <tr>
+                                                        <th>รหัสนิสิต</th>
+                                                        <th>ชื่อ-สกุล</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% course.student.forEach(function(student){ %>
+                                                    <tr>
+
+                                                        <td><%=student.student_id%></td>
+                                                        <td><%=student.firstname%> <%=student.lastname%></td>
+
+                                                    </tr>
+                                                    <% }) %>
+                                                    <% if(course.student.length<1){ %>
+                                                    <tr>
+                                                        <td style="text-align: center;" colspan="3">ไม่มีข้อมูลในระบบ
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="addteacher-<%=course._id%>" uk-modal>
+                                    <div class="uk-modal-dialog uk-modal-body">
+                                        <h2 class="uk-modal-title uk-legend">อาจารย์</h2>
+                                        <div class="uk-overflow-auto">
+                                            <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+                                                <thead>
+                                                    <tr>
+                                                        <th>รหัสประจำตัว</th>
+                                                        <th>ชื่อ-สกุล</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% course.teacher.forEach(function(teacher){ %>
+                                                    <tr>
+
+                                                        <td><%=teacher.teacher_id%></td>
+                                                        <td><%=teacher.firstname%> <%=teacher.lastname%></td>
+
+                                                    </tr>
+                                                    <% }) %>
+                                                    <% if(course.teacher.length<1){ %>
+                                                    <tr>
+                                                        <td style="text-align: center;" colspan="3">ไม่มีข้อมูลในระบบ
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="/exam/manage/course/<%=subject._id%>/<%=course._id%>"
+                                    style="right: 0; margin-top: 1px;"
+                                    class="uk-button uk-button-default  uk-margin-small-right uk-button-primary ">ดูการจัดสอบ
+                                </a>   
+                            </td>
+
+                        </tr>
+                        <% }); %>
+                        <% if(subject.course.length<1){ %>
+                        <tr>
+                            <td colspan="2">ไม่มีข้อมูลในระบบ</td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/javascript'); -%>
+
+<script>
+    $('.easy-autocomplete').css('width', '100%')
+    var optionsStudent = {
+        url: function (phrase) {
+            // console.log(phrase);
+            return "/manageuser/student/search/" + phrase;
+        },
+        getValue: function (item) {
+            return item.student_id
+        },
+        requestDelay: 300,
+        ajaxSettings: {
+            dataType: "json",
+            method: "GET",
+            data: {
+                dataType: "json"
+            }
+        },
+        list: {
+            onChooseEvent: function () {
+
+            }
+        },
+        template: {
+            type: "custom",
+            method: function (value, item) {
+                return item.student_id + " | " + item.firstname + " " + item.lastname;
+            }
+        },
+        preparePostData: function (data) {
+            //   console.log( $("#s_post").val());
+            // data.phrase = $("#search-auto-com").val();
+            // data._token = $("#s_post").val();
+            return data;
+        },
+    };
+    $(".search-student").easyAutocomplete(optionsStudent);
+    var optionsTeacher = {
+        url: function (phrase) {
+            // console.log(phrase);
+            return "/manageuser/teacher/search/" + phrase;
+        },
+        getValue: function (item) {
+            return item.teacher_id
+        },
+        requestDelay: 300,
+        ajaxSettings: {
+            dataType: "json",
+            method: "GET",
+            data: {
+                dataType: "json"
+            }
+        },
+        list: {
+            onChooseEvent: function () {
+
+            }
+        },
+        template: {
+            type: "custom",
+            method: function (value, item) {
+                return item.teacher_id + " | " + item.firstname + " " + item.lastname;
+            }
+        },
+        preparePostData: function (data) {
+            //   console.log( $("#s_post").val());
+            // data.phrase = $("#search-auto-com").val();
+            // data._token = $("#s_post").val();
+            return data;
+        },
+    };
+    $(".search-teacher").easyAutocomplete(optionsTeacher);
+</script>
+<%- include('../layouts/footer'); -%>

@@ -1,0 +1,79 @@
+<%- include('../layouts/header', {title: 'จัดการการสอบ'}); -%>
+<%- include('../layouts/css'); -%>
+<%- include('../layouts/endheader'); -%>
+<div class="uk-flex">
+    <%- include('../layouts/sideMenu'); -%>
+    <div class="content-contianer">
+        <div class="navbar">
+            <div class="uk-flex">
+                <div class="width-100 nav-left">
+                    หน้าหลัก
+                    <span uk-icon="chevron-right"></span> จัดการการสอบ
+                </div>
+                <%- include('../layouts/navBar'); -%>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="uk-margin" style="text-align: left;">
+                <div class="uk-search uk-search-default" method="GET">
+                    <span class="uk-search-icon-flip" onclick="searchByKey(this)" uk-search-icon></span>
+                    <input class="uk-search-input" onkeypress="searchEnter(event,this)" value="" type="search"
+                        placeholder="Search...">
+                </div>
+                <button type="button" class="uk-button uk-button-default" onclick="searchByKey(this)">ค้นหา</button>
+            </div>
+            <div style="text-align: center;">
+                <table class="uk-table uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">รหัสวิชา</th>
+                            <th style="text-align: center;">ชื่อวิชา</th>
+                            <th style="text-align: center;">จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% subjects.forEach(function(subject){ %>
+                        <tr>
+                            <td><%= subject.subjectKey %></td>
+                            <td><%= subject.subjectName %></td>
+                            <td>
+                                <a href="/exam/manage/course/<%= subject._id %>"><button
+                                        class="uk-button uk-button-default"
+                                        style="padding: 0px 10px; margin-right: 10px; background-color: #10a7ff; color: #fff;">จัดสอบ</button></a>
+                            </td>
+                        </tr>
+                        <% }); %>
+                        <% if(subjects.length<1){ %>
+                        <tr>
+                            <td colspan="3">ไม่มีข้อมูลในระบบ</td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/javascript'); -%>
+<script>
+    function searchEnter(e, obj) {
+        if (e.keyCode == 13) {
+            searchByKey(obj)
+        }
+    }
+
+    function searchByKey(obj) {
+        let input = $(obj).parent().find("input").val();
+        // console.log(obj);
+        console.log(input)
+
+        if (input == "") {
+            window.location.href = "/exam/"
+        } else {
+            window.location.href = "/exam/search/" + input
+        }
+    }
+</script>
+<%- include('../layouts/footer'); -%>
