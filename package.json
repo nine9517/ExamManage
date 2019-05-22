@@ -38,10 +38,12 @@
     "uuid-token-generator": "^1.0.0"
   },
   "devDependencies": {
+    "jest": "^24.8.0",
     "mocha": "^6.1.4"
   },
   "scripts": {
-    "test": "mocha",
+    "test_mocha": "mocha test/mocha/**/*.test.js",
+    "test_jest": "jest test/jest/",
     "start": "node mainapi.js",
     "startDev": "forever start -w mainapi.js --watchIgnore",
     "log": "forever logs mainapi.js -f"
