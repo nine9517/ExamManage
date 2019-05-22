@@ -36,11 +36,9 @@ Step 6
 
 ## Testing
 
-Step 1
+> npm i -g mocha && mocha
 
-> npm i -g mocha
-
-Step 2
+Or
 
 > npm test
 
