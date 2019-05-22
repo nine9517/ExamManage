@@ -3,7 +3,8 @@ const chalk = require('chalk');
 const Logo = require('../helpers/logo');
 mongoose.Promise = global.Promise;
 let Collection = 'exammanage_test';
-mongoose.connect('mongodb://127.0.0.1:27017/'+Collection, { useNewUrlParser: true });
+const config = require('./configuration/app.json');
+mongoose.connect('mongodb://'+config.DB_HOST+':'+config.DB_PORT+'/'+Collection, { useNewUrlParser: true });
 mongoose.set('useCreateIndex', true);
 require('../helpers/general');
 
