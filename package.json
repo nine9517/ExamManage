@@ -42,7 +42,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "start": "forever start mainapi.js",
+    "start": "node mainapi.js",
     "startDev": "forever start -w mainapi.js --watchIgnore",
     "log": "forever logs mainapi.js -f"
   },
