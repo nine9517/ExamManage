@@ -12,7 +12,7 @@
 # Quick start
 
 Step 1
-> git clone https://github.com/nine9517/ExamManage.git
+> git clone https://github.com/parinyakiat/ExamManage.git
 
 Step 2
 
